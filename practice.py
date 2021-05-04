@@ -1,16 +1,11 @@
-import pandas as pd
-
 import numpy as np
+import pylab as plt
 
-ax = pd.DataFrame({
+X = np.linspace(0,5,100)
+Y1 = X + 2*np.random.random(X.shape)
+Y2 = X**2 + np.random.random(X.shape)
 
-    "Name" : ['Rohit', 'Viraj', 'Aman'],
-
-    "Age" : [29, 28, 27],
-
-    "City" : ['Jamshedpur', 'Bangalore', 'Dubai']
-
-})
-ax
-print ("Hello World")
-print (ax)
+fig, ax = plt.subplots()
+ax.plot(X,Y1,'o')
+ax.plot(X,Y2,'x')
+plt.show()

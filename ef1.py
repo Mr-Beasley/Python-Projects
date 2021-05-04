@@ -4,7 +4,10 @@ import math
 from scipy.optimize import minimize
 
 def get_returns():
-    
+    """
+    Gets return from a set of NAV series
+
+    """
     ier= pd.read_excel("Ef.xlsx",header=0,index_col=0,parse_dates=True)
     ier.index=pd.to_datetime(ier.index,format='%Y%m%d')
     ier.columns = ier.columns.str.strip()
@@ -18,19 +21,29 @@ def annualised_returns(r,periods_per_year):
 def annualize_vol(r, periods_per_year):
     """
     Annualizes the vol of a set of returns
-    We should infer the periods per year
-    but that is currently left as an exercise
-    to the reader :-)
+    
     """
     return r.std()*(periods_per_year**0.5)
 
 def portfolio_rets(weights,returns):
+    """
+    Calculates portfolio returns
+
+    """
     return (weights.T @ returns)
 
 def portfolio_vol(weights, covmat):
+    """
+    Calculates portfolio volatility
+
+    """
     return (weights.T @ covmat @ weights)**0.5
 
 def minimize_vol(target_return,er,cov):
+    """
+    Gives the minimum volatility for a particular target return, return series and covariance matrix
+
+    """
     n=er.shape[0]
     init_guess=np.repeat(1/n,n)
     bounds=((0.0,1.0),)*n
